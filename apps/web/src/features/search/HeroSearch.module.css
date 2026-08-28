@@ -1,0 +1,81 @@
+/** Large search input on the landing hero. */
+
+.wrap {
+  position: relative;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-strong);
+  background: color-mix(in srgb, var(--surface-overlay) 88%, transparent);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-lg);
+
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.form:focus-within {
+  border-color: var(--accent-500);
+  box-shadow: var(--shadow-lg), 0 0 0 4px color-mix(in srgb, var(--accent-500) 16%, transparent);
+}
+
+.icon {
+  color: var(--text-subtle);
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: var(--text-md);
+}
+
+.input:focus-visible {
+  box-shadow: none;
+}
+
+.input::placeholder {
+  color: var(--text-subtle);
+}
+
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.exampleLabel {
+  font-size: var(--text-xs);
+  color: var(--text-subtle);
+  align-self: center;
+}
+
+.example {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.example:hover {
+  border-color: var(--border-accent);
+  color: var(--text);
+}

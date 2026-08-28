@@ -1,0 +1,39 @@
+{
+  "name": "@apihub/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --clear-screen=false src/index.ts",
+    "build": "tsup",
+    "start": "node dist/index.js",
+    "ingest": "tsx src/cli/ingest.ts",
+    "probe": "tsx src/cli/probe.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "clean": "rimraf dist .turbo *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@apihub/algorithms": "workspace:*",
+    "@apihub/config": "workspace:*",
+    "@apihub/contracts": "workspace:*",
+    "@apihub/database": "workspace:*",
+    "@apihub/logger": "workspace:*",
+    "@apihub/runtime": "workspace:*",
+    "@apihub/security": "workspace:*",
+    "drizzle-orm": "^0.45.2",
+    "undici": "^8.10.0",
+    "zod": "^4.4.3",
+    "@apihub/domain": "workspace:*",
+    "@apihub/jobs": "workspace:*"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.7",
+    "@types/node": "^24.10.1",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.5.1",
+    "tsx": "^4.23.12",
+    "typescript": "5.9.3",
+    "vitest": "^4.1.11"
+  }
+}

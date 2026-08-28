@@ -1,0 +1,108 @@
+/**
+ * Card surface.
+ *
+ * The hover lift is deliberately small (2px) and paired with a border tint:
+ * a large lift on a dense grid creates a wobbling effect as the pointer moves.
+ */
+
+.card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.padded {
+  padding: var(--space-5);
+}
+
+.interactive {
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out);
+}
+
+.interactive:hover {
+  border-color: var(--border-accent);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.interactive:focus-within {
+  border-color: var(--accent-500);
+}
+
+/*
+ * Accent hairline that fades in on hover.
+ *
+ * A gradient rather than a solid rule so it reads as light catching an edge
+ * rather than a hard border, which would fight the card's own border.
+ */
+.glow::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent-400) 70%, transparent),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.glow:hover::before {
+  opacity: 1;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-5) var(--space-4);
+}
+
+.headerBordered {
+  border-bottom: 1px solid var(--border);
+}
+
+.title {
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-snug);
+}
+
+.subtitle {
+  margin-top: 2px;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  font-weight: var(--weight-normal);
+}
+
+.body {
+  padding: var(--space-5);
+}
+
+.bodyTight {
+  padding: var(--space-4) var(--space-5);
+}
+
+.footer {
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--border);
+  background: var(--surface-sunken);
+}
+
+/* Sunken inner panel, e.g. a response viewer inside a card. */
+.sunken {
+  background: var(--surface-sunken);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}

@@ -1,0 +1,108 @@
+/**
+ * Badge / pill.
+ *
+ * Tones are built with color-mix against the token so a single definition
+ * produces a correct tint in both themes: mixing the semantic colour into the
+ * surface keeps contrast right whether the ground is dark or light.
+ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-medium);
+  line-height: 1.5;
+  letter-spacing: var(--tracking-wide);
+  white-space: nowrap;
+}
+
+.neutral {
+  background: color-mix(in srgb, var(--text-muted) 12%, transparent);
+  border-color: color-mix(in srgb, var(--text-muted) 22%, transparent);
+  color: var(--text-secondary);
+}
+
+.accent {
+  background: color-mix(in srgb, var(--accent-500) 15%, transparent);
+  border-color: color-mix(in srgb, var(--accent-500) 32%, transparent);
+  color: var(--accent-300);
+}
+
+.up {
+  background: color-mix(in srgb, var(--up-500) 15%, transparent);
+  border-color: color-mix(in srgb, var(--up-500) 32%, transparent);
+  color: var(--up-400);
+}
+
+.degraded {
+  background: color-mix(in srgb, var(--degraded-500) 15%, transparent);
+  border-color: color-mix(in srgb, var(--degraded-500) 32%, transparent);
+  color: var(--degraded-400);
+}
+
+.down {
+  background: color-mix(in srgb, var(--down-500) 15%, transparent);
+  border-color: color-mix(in srgb, var(--down-500) 32%, transparent);
+  color: var(--down-400);
+}
+
+.info {
+  background: color-mix(in srgb, var(--info-500) 15%, transparent);
+  border-color: color-mix(in srgb, var(--info-500) 32%, transparent);
+  color: var(--info-400);
+}
+
+[data-theme='light'] .accent {
+  color: var(--accent-700);
+}
+[data-theme='light'] .up {
+  color: var(--up-600);
+}
+[data-theme='light'] .degraded {
+  color: var(--degraded-600);
+}
+[data-theme='light'] .down {
+  color: var(--down-600);
+}
+
+.md {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0;
+}
+
+/* ── Status dot ─────────────────────────────────────────────── */
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+/*
+ * A live "up" status gets a slow pulse ring so a glance at the dashboard shows
+ * the board is live rather than a stale screenshot.
+ */
+.pulse {
+  position: relative;
+}
+
+.pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  animation: pulse-ring 2.4s var(--ease-out) infinite;
+}

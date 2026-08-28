@@ -1,0 +1,105 @@
+/**
+ * Toast notifications.
+ *
+ * Anchored bottom-right on desktop and full-width at the bottom on mobile,
+ * where a corner toast is easy to miss and can sit under a thumb.
+ */
+
+.viewport {
+  position: fixed;
+  bottom: var(--space-5);
+  right: var(--space-5);
+  z-index: var(--z-toast);
+
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-2);
+  max-width: min(380px, calc(100vw - var(--space-8)));
+
+  /* The container must not swallow clicks on the page behind it. */
+  pointer-events: none;
+}
+
+@media (max-width: 560px) {
+  .viewport {
+    left: var(--space-4);
+    right: var(--space-4);
+    bottom: var(--space-4);
+    max-width: none;
+  }
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-overlay);
+  box-shadow: var(--shadow-xl);
+
+  animation: rise-in var(--duration-base) var(--ease-spring);
+}
+
+.exiting {
+  animation: fade-in var(--duration-fast) var(--ease-out) reverse forwards;
+}
+
+.iconWrap {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.success .iconWrap {
+  color: var(--up-400);
+}
+.error .iconWrap {
+  color: var(--down-400);
+}
+.info .iconWrap {
+  color: var(--info-400);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug);
+}
+
+.description {
+  margin-top: 2px;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: var(--leading-snug);
+  overflow-wrap: anywhere;
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-sm);
+  color: var(--text-subtle);
+  flex-shrink: 0;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+
+.close:hover {
+  color: var(--text);
+  background: var(--surface-hover);
+}

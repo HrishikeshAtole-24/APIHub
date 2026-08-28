@@ -1,0 +1,311 @@
+/** API detail page. */
+
+.page {
+  padding-block: var(--space-6) var(--space-16);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-subtle);
+  margin-bottom: var(--space-5);
+}
+
+.breadcrumb a:hover {
+  color: var(--text);
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  flex-shrink: 0;
+
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--accent-500) 22%, var(--surface)),
+    var(--surface-sunken)
+  );
+  border: 1px solid var(--border-strong);
+
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  color: var(--accent-300);
+}
+
+.headText {
+  flex: 1;
+  min-width: 260px;
+}
+
+.title {
+  font-size: var(--text-3xl);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.15;
+}
+
+.provider {
+  margin-top: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--text-subtle);
+}
+
+.description {
+  margin-top: var(--space-3);
+  font-size: var(--text-md);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  max-width: 76ch;
+}
+
+.headActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--space-6);
+  align-items: start;
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-5));
+}
+
+@media (max-width: 1024px) {
+  .aside {
+    position: static;
+  }
+}
+
+/* ── Info list ──────────────────────────────────────────────── */
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border);
+  font-size: var(--text-sm);
+}
+
+.infoRow:last-child {
+  border-bottom: none;
+}
+
+.infoLabel {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.infoValue {
+  color: var(--text);
+  font-weight: var(--weight-medium);
+  text-align: right;
+  min-width: 0;
+}
+
+.infoValue a {
+  color: var(--accent-400);
+}
+
+.infoValue a:hover {
+  text-decoration: underline;
+}
+
+/* ── Metric tiles ───────────────────────────────────────────── */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 640px) {
+  .metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.metric {
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.metricLabel {
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--text-subtle);
+  margin-bottom: var(--space-2);
+}
+
+.metricValue {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.metricHint {
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--text-subtle);
+}
+
+/* ── Sections ───────────────────────────────────────────────── */
+
+.section {
+  margin-top: var(--space-8);
+}
+
+.sectionTitle {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Endpoint list ──────────────────────────────────────────── */
+
+.endpoint {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.endpoint:last-child {
+  border-bottom: none;
+}
+
+.method {
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-xs);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  flex-shrink: 0;
+  min-width: 48px;
+  text-align: center;
+}
+
+.methodGET {
+  background: color-mix(in srgb, var(--up-500) 16%, transparent);
+  color: var(--up-400);
+}
+.methodPOST {
+  background: color-mix(in srgb, var(--info-500) 16%, transparent);
+  color: var(--info-400);
+}
+.methodPUT,
+.methodPATCH {
+  background: color-mix(in srgb, var(--degraded-500) 16%, transparent);
+  color: var(--degraded-400);
+}
+.methodDELETE {
+  background: color-mix(in srgb, var(--down-500) 16%, transparent);
+  color: var(--down-400);
+}
+
+.endpointPath {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-secondary);
+}
+
+/* ── Alternatives ───────────────────────────────────────────── */
+
+.altList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.alt {
+  display: block;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.alt:hover {
+  background: var(--surface-hover);
+}
+
+.altName {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.altDesc {
+  font-size: var(--text-xs);
+  color: var(--text-subtle);
+  --lines: 1;
+}
+
+/* ── Provenance ─────────────────────────────────────────────── */
+
+.provenance {
+  font-size: var(--text-xs);
+  color: var(--text-subtle);
+  line-height: var(--leading-relaxed);
+}
+
+.provenance a {
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

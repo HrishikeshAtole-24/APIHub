@@ -1,0 +1,342 @@
+/**
+ * Application header.
+ *
+ * Sticky with a backdrop blur so content scrolling underneath stays faintly
+ * visible — it keeps the page feeling continuous rather than clipped, and the
+ * translucency reads as a layer above the content rather than a lid on it.
+ */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+
+  height: var(--header-height);
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+}
+
+/* Browsers without backdrop-filter get an opaque bar rather than unreadable text. */
+@supports not (backdrop-filter: blur(1px)) {
+  .header {
+    background: var(--bg);
+  }
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  height: 100%;
+}
+
+/* ── Brand ──────────────────────────────────────────────────── */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-md);
+  letter-spacing: var(--tracking-tight);
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--accent-400), var(--accent-600));
+  color: #fff;
+  box-shadow: var(--shadow-accent);
+  flex-shrink: 0;
+}
+
+.brandName {
+  color: var(--text);
+}
+
+.brandName em {
+  font-style: normal;
+  color: var(--accent-400);
+}
+
+[data-theme='light'] .brandName em {
+  color: var(--accent-600);
+}
+
+/* ── Navigation ─────────────────────────────────────────────── */
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.navLink {
+  position: relative;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--text-muted);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+
+.navLink:hover {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+.navLinkActive {
+  color: var(--text);
+}
+
+/*
+ * Active underline.
+ *
+ * Drawn as a pseudo-element rather than a border so it can sit flush with the
+ * header's own bottom border and animate width from the centre.
+ */
+.navLinkActive::after {
+  content: '';
+  position: absolute;
+  left: var(--space-3);
+  right: var(--space-3);
+  bottom: -13px;
+  height: 2px;
+  border-radius: var(--radius-full);
+  background: var(--accent-500);
+  animation: rise-in var(--duration-base) var(--ease-out);
+}
+
+/* ── Right cluster ──────────────────────────────────────────── */
+
+.spacer {
+  flex: 1;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.searchTrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 32px;
+  padding: 0 var(--space-2) 0 var(--space-3);
+  min-width: 200px;
+
+  background: var(--surface-overlay);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-subtle);
+  font-size: var(--text-sm);
+
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+
+.searchTrigger:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
+}
+
+.searchTriggerLabel {
+  flex: 1;
+  text-align: left;
+}
+
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  padding: 2px 5px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-sunken);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--text-subtle);
+  line-height: 1;
+}
+
+.iconButton {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+
+.iconButton:hover {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+/* ── Avatar / user menu ─────────────────────────────────────── */
+
+.userButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 32px;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-md);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.userButton:hover {
+  background: var(--surface-hover);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  color: #fff;
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  flex-shrink: 0;
+}
+
+.userName {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  max-width: 110px;
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  min-width: 208px;
+  z-index: var(--z-dropdown);
+
+  background: var(--surface-overlay);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding: var(--space-1);
+
+  animation: scale-in var(--duration-fast) var(--ease-out);
+  transform-origin: top right;
+}
+
+.menuWrap {
+  position: relative;
+}
+
+.menuHeader {
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-1);
+}
+
+.menuEmail {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  text-align: left;
+  transition:
+    background-color var(--duration-instant) var(--ease-out),
+    color var(--duration-instant) var(--ease-out);
+}
+
+.menuItem:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+.menuDanger:hover {
+  color: var(--down-400);
+}
+
+.menuDivider {
+  height: 1px;
+  background: var(--border);
+  margin: var(--space-1) 0;
+}
+
+/* ── Mobile ─────────────────────────────────────────────────── */
+
+.mobileToggle {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .nav,
+  .searchTriggerLabel,
+  .kbd {
+    display: none;
+  }
+
+  .searchTrigger {
+    min-width: 0;
+    width: 32px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .mobileToggle {
+    display: grid;
+  }
+
+  .userName {
+    display: none;
+  }
+}
+
+.mobileNav {
+  position: fixed;
+  inset: var(--header-height) 0 auto 0;
+  z-index: var(--z-dropdown);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-3) var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-lg);
+  animation: rise-in var(--duration-base) var(--ease-out);
+}
+
+.mobileNavLink {
+  display: block;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+}
+
+.mobileNavLink:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}

@@ -1,0 +1,25 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# Build scripts are denied by default (supply-chain hardening).
+# Only these packages are permitted to run install-time scripts:
+#   esbuild  - downloads/links its platform binary; needed by tsup, vitest, tsx
+#   pglite   - ships the embedded PostgreSQL WASM build
+#   sharp    - Next.js image optimisation binary
+allowBuilds:
+  esbuild: true
+  "@electric-sql/pglite": true
+  sharp: true
+  # Optional native msgpack accelerator pulled in by BullMQ. Denied: the pure-JS
+  # path is used instead, so no native toolchain is required to install.
+  msgpackr-extract: false
+
+onlyBuiltDependencies:
+  - "@electric-sql/pglite"
+  - "esbuild"
+  - "sharp"
+
+minimumReleaseAgeExclude:
+  - "@electric-sql/pglite@0.5.7"
+  - '@types/react-dom@19.2.5'

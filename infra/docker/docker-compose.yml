@@ -1,0 +1,123 @@
+# Full local stack: PostgreSQL + Redis + API + worker + web.
+#
+# This is the topology the platform actually runs in production, with the API
+# and worker as separate processes and real infrastructure behind them. The
+# zero-setup path (`pnpm dev`, embedded PGlite, no Redis) exists for a quick
+# start; use this when you want to exercise the real thing.
+#
+#   docker compose -f infra/docker/docker-compose.yml up --build
+
+name: apihub
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: apihub
+      POSTGRES_PASSWORD: apihub
+      POSTGRES_DB: apihub
+      # Faster startup; this database is disposable.
+      POSTGRES_INITDB_ARGS: '--data-checksums'
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      # Dependent services must wait for readiness, not merely for the
+      # container to exist.
+      test: ['CMD-SHELL', 'pg_isready -U apihub -d apihub']
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+
+  redis:
+    image: redis:8-alpine
+    # Redis holds cache, counters and queues. AOF keeps queued jobs across a
+    # restart; losing cache entries is fine, losing jobs is not.
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  api:
+    build:
+      context: ../..
+      dockerfile: infra/docker/api.Dockerfile
+    environment:
+      NODE_ENV: production
+      DATABASE_DRIVER: postgres
+      DATABASE_URL: postgres://apihub:apihub@postgres:5432/apihub
+      REDIS_URL: redis://redis:6379
+      PORT: '4000'
+      HOST: 0.0.0.0
+      CORS_ORIGINS: http://localhost:3000
+      # Compose-only value. A real deployment injects this from a secret store.
+      AUTH_SECRET: compose-only-secret-replace-me-32-characters-min
+      # The stack terminates TLS at the edge, not here.
+      COOKIE_SECURE: 'false'
+      LOG_LEVEL: info
+      # The worker runs as its own service in this topology.
+      WORKER_EMBEDDED: 'false'
+    ports:
+      - '4000:4000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: ../..
+      dockerfile: infra/docker/worker.Dockerfile
+    environment:
+      NODE_ENV: production
+      DATABASE_DRIVER: postgres
+      DATABASE_URL: postgres://apihub:apihub@postgres:5432/apihub
+      REDIS_URL: redis://redis:6379
+      AUTH_SECRET: compose-only-secret-replace-me-32-characters-min
+      COOKIE_SECURE: 'false'
+      LOG_LEVEL: info
+      HEALTH_PROBE_CONCURRENCY: '8'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      # Not a hard dependency, but letting the API apply migrations first
+      # avoids two processes racing on the same DDL.
+      api:
+        condition: service_started
+    restart: unless-stopped
+    # Health probes are IO-bound; the worker scales horizontally on this axis.
+    deploy:
+      replicas: 1
+
+  web:
+    build:
+      context: ../..
+      dockerfile: infra/docker/web.Dockerfile
+      args:
+        # Next.js inlines NEXT_PUBLIC_* at build time, so it must be an arg.
+        NEXT_PUBLIC_API_URL: http://localhost:4000
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://localhost:4000
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+    ports:
+      - '3000:3000'
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+  redis-data:

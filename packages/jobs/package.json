@@ -1,0 +1,33 @@
+{
+  "name": "@apihub/jobs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rimraf dist .turbo *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@apihub/algorithms": "workspace:*",
+    "@apihub/config": "workspace:*",
+    "@apihub/database": "workspace:*",
+    "@apihub/domain": "workspace:*",
+    "@apihub/logger": "workspace:*",
+    "@apihub/runtime": "workspace:*",
+    "@apihub/security": "workspace:*",
+    "drizzle-orm": "^0.45.2",
+    "undici": "^8.10.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.7",
+    "@types/node": "^24.10.1",
+    "rimraf": "^6.0.1",
+    "typescript": "5.9.3",
+    "vitest": "^4.1.11"
+  }
+}

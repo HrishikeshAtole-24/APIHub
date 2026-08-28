@@ -1,0 +1,42 @@
+/**
+ * Loading skeletons.
+ *
+ * Skeletons mirror the SHAPE of the content they replace, so the layout does
+ * not jump when real data arrives — that shift is the main thing a spinner
+ * fails to prevent.
+ */
+
+.skeleton {
+  --skeleton-height: 1em;
+  display: block;
+  height: var(--skeleton-height);
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--surface-raised) 25%,
+    var(--surface-hover) 50%,
+    var(--surface-raised) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.text {
+  --skeleton-height: 0.85em;
+  margin-block: 0.28em;
+}
+
+.circle {
+  border-radius: var(--radius-full);
+}
+
+.card {
+  height: 168px;
+  border-radius: var(--radius-lg);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-4);
+}

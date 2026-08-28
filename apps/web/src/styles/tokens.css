@@ -1,0 +1,269 @@
+/**
+ * APIHub design tokens.
+ *
+ * Every colour, size, radius, shadow and timing in the product resolves to a
+ * token defined here. Nothing downstream writes a raw hex value, which is what
+ * makes the light/dark switch a one-file change rather than an audit.
+ *
+ * Palette rationale
+ * -----------------
+ * APIHub is a developer tool that people read for long stretches, so the base
+ * is a desaturated blue-grey ("ink") rather than pure neutral: it is calmer
+ * under sustained reading and lets status colours stay legible without
+ * shouting. A single vivid accent (violet) carries interaction; semantic
+ * colours are reserved exclusively for health state, so a green pill always
+ * means "operational" and never merely "primary".
+ *
+ * Dark is the default because that is the default of the tools this sits
+ * beside (terminals, editors, API clients), and because the health dashboard
+ * reads better on a dark ground.
+ */
+
+:root {
+  /* ── Base scale (dark theme values) ───────────────────────── */
+  --ink-950: #08090d;
+  --ink-900: #0c0e14;
+  --ink-850: #11141c;
+  --ink-800: #161a24;
+  --ink-750: #1c212d;
+  --ink-700: #232936;
+  --ink-600: #2f3646;
+  --ink-500: #454e63;
+  --ink-400: #626c85;
+  --ink-300: #8a94ad;
+  --ink-200: #b4bccd;
+  --ink-100: #d9deea;
+  --ink-050: #eef1f7;
+
+  /* ── Accent: violet ───────────────────────────────────────── */
+  --accent-100: #ede9ff;
+  --accent-200: #d4ccff;
+  --accent-300: #b3a4ff;
+  --accent-400: #9179ff;
+  --accent-500: #7c5cff;
+  --accent-600: #6a44f5;
+  --accent-700: #5733d6;
+  --accent-800: #4527a8;
+
+  /* ── Semantic: reserved for health status ─────────────────── */
+  --up-400: #34d399;
+  --up-500: #10b981;
+  --up-600: #059669;
+
+  --degraded-400: #fbbf24;
+  --degraded-500: #f59e0b;
+  --degraded-600: #d97706;
+
+  --down-400: #fb7185;
+  --down-500: #f43f5e;
+  --down-600: #e11d48;
+
+  --info-400: #38bdf8;
+  --info-500: #0ea5e9;
+
+  /* ── Surfaces ─────────────────────────────────────────────── */
+  --bg: var(--ink-950);
+  /* Page-level gradient wash; keeps large empty areas from looking flat. */
+  --bg-gradient:
+    radial-gradient(1200px 600px at 15% -10%, rgba(124, 92, 255, 0.13), transparent 60%),
+    radial-gradient(900px 500px at 95% 0%, rgba(14, 165, 233, 0.08), transparent 55%);
+  --surface: var(--ink-900);
+  --surface-raised: var(--ink-850);
+  --surface-overlay: var(--ink-800);
+  --surface-sunken: var(--ink-950);
+  --surface-hover: var(--ink-800);
+
+  /* ── Text ─────────────────────────────────────────────────── */
+  --text: var(--ink-050);
+  --text-secondary: var(--ink-200);
+  --text-muted: var(--ink-300);
+  --text-subtle: var(--ink-400);
+  --text-on-accent: #ffffff;
+
+  /* ── Borders ──────────────────────────────────────────────── */
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.13);
+  --border-accent: rgba(124, 92, 255, 0.45);
+
+  /* ── Focus ring: one definition, used everywhere ──────────── */
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent-500);
+
+  /* ── Elevation ────────────────────────────────────────────── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45), 0 4px 8px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --shadow-accent: 0 6px 24px rgba(124, 92, 255, 0.28);
+
+  /* ── Typography ───────────────────────────────────────────── */
+  --font-sans:
+    'Inter var', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-mono:
+    'JetBrains Mono', 'SF Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
+    'Liberation Mono', monospace;
+
+  /* A 1.2 modular scale, rounded to whole pixels for crisp rendering. */
+  --text-2xs: 0.6875rem; /* 11px */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.8125rem; /* 13px */
+  --text-base: 0.875rem; /* 14px - the product's body size */
+  --text-md: 0.9375rem; /* 15px */
+  --text-lg: 1.0625rem; /* 17px */
+  --text-xl: 1.3125rem; /* 21px */
+  --text-2xl: 1.625rem; /* 26px */
+  --text-3xl: 2rem; /* 32px */
+  --text-4xl: 2.5rem; /* 40px */
+  --text-5xl: 3.25rem; /* 52px */
+  --text-6xl: 4rem; /* 64px */
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.7;
+
+  --tracking-tight: -0.02em;
+  --tracking-snug: -0.011em;
+  --tracking-wide: 0.02em;
+  --tracking-caps: 0.06em;
+
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ── Spacing: 4px base ────────────────────────────────────── */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* ── Radii ────────────────────────────────────────────────── */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 9px;
+  --radius-lg: 13px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
+  --radius-full: 999px;
+
+  /* ── Motion ───────────────────────────────────────────────── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-instant: 80ms;
+  --duration-fast: 140ms;
+  --duration-base: 220ms;
+  --duration-slow: 380ms;
+
+  /* ── Layout ───────────────────────────────────────────────── */
+  --container-max: 1280px;
+  --container-wide: 1480px;
+  --container-prose: 68ch;
+  --header-height: 60px;
+  --sidebar-width: 264px;
+
+  /* ── Z-index: a single ordered scale prevents arms races ──── */
+  --z-base: 1;
+  --z-sticky: 100;
+  --z-header: 200;
+  --z-dropdown: 300;
+  --z-overlay: 400;
+  --z-modal: 500;
+  --z-toast: 600;
+}
+
+/**
+ * Light theme.
+ *
+ * Not a naive inversion: surfaces gain a faint warm lift so cards separate
+ * from the page without heavy borders, and text contrast is re-tuned rather
+ * than mirrored (dark-on-light needs less weight than light-on-dark to read
+ * as equally strong).
+ */
+[data-theme='light'] {
+  --bg: #fbfbfd;
+  --bg-gradient:
+    radial-gradient(1100px 560px at 12% -12%, rgba(124, 92, 255, 0.09), transparent 60%),
+    radial-gradient(800px 460px at 96% -4%, rgba(14, 165, 233, 0.06), transparent 55%);
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-overlay: #ffffff;
+  --surface-sunken: #f3f4f8;
+  --surface-hover: #f5f6fa;
+
+  --text: #0d1017;
+  --text-secondary: #383f4f;
+  --text-muted: #5b6478;
+  --text-subtle: #7c8598;
+
+  --border: rgba(13, 16, 23, 0.09);
+  --border-strong: rgba(13, 16, 23, 0.16);
+  --border-accent: rgba(106, 68, 245, 0.4);
+
+  --accent-500: #6a44f5;
+  --accent-600: #5733d6;
+
+  --up-500: #059669;
+  --degraded-500: #d97706;
+  --down-500: #e11d48;
+
+  --shadow-sm: 0 1px 2px rgba(13, 16, 23, 0.06);
+  --shadow-md: 0 4px 14px rgba(13, 16, 23, 0.08), 0 1px 3px rgba(13, 16, 23, 0.05);
+  --shadow-lg: 0 14px 36px rgba(13, 16, 23, 0.1), 0 4px 10px rgba(13, 16, 23, 0.05);
+  --shadow-xl: 0 28px 64px rgba(13, 16, 23, 0.14);
+  --shadow-accent: 0 6px 24px rgba(106, 68, 245, 0.22);
+}
+
+/**
+ * Follow the OS when the user has not chosen explicitly.
+ *
+ * `:root:not([data-theme])` is important: once a choice is stored the
+ * attribute is present and must win over the media query in both directions.
+ */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --bg: #fbfbfd;
+    --bg-gradient:
+      radial-gradient(1100px 560px at 12% -12%, rgba(124, 92, 255, 0.09), transparent 60%),
+      radial-gradient(800px 460px at 96% -4%, rgba(14, 165, 233, 0.06), transparent 55%);
+    --surface: #ffffff;
+    --surface-raised: #ffffff;
+    --surface-overlay: #ffffff;
+    --surface-sunken: #f3f4f8;
+    --surface-hover: #f5f6fa;
+
+    --text: #0d1017;
+    --text-secondary: #383f4f;
+    --text-muted: #5b6478;
+    --text-subtle: #7c8598;
+
+    --border: rgba(13, 16, 23, 0.09);
+    --border-strong: rgba(13, 16, 23, 0.16);
+    --border-accent: rgba(106, 68, 245, 0.4);
+
+    --accent-500: #6a44f5;
+    --accent-600: #5733d6;
+
+    --up-500: #059669;
+    --degraded-500: #d97706;
+    --down-500: #e11d48;
+
+    --shadow-sm: 0 1px 2px rgba(13, 16, 23, 0.06);
+    --shadow-md: 0 4px 14px rgba(13, 16, 23, 0.08), 0 1px 3px rgba(13, 16, 23, 0.05);
+    --shadow-lg: 0 14px 36px rgba(13, 16, 23, 0.1), 0 4px 10px rgba(13, 16, 23, 0.05);
+    --shadow-xl: 0 28px 64px rgba(13, 16, 23, 0.14);
+    --shadow-accent: 0 6px 24px rgba(106, 68, 245, 0.22);
+  }
+}

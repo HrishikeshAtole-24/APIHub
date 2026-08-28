@@ -1,0 +1,24 @@
+/** Larger health-status indicator used on detail pages and the board. */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+}
+
+.label {
+  line-height: 1;
+}
+
+.latency {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-normal);
+  opacity: 0.8;
+  font-size: var(--text-2xs);
+}
